@@ -1,33 +1,22 @@
 package fr.tommarx.ld38;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
-public class GameClass extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+import fr.tommarx.gameengine.Game.Game;
+import fr.tommarx.gameengine.Util.Util;
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+public class GameClass extends Game {
+
+	static BitmapFont font20, font30;
+	static GlyphLayout glyphLayout;
+
+	public void init() {
+		glyphLayout = new GlyphLayout();
+		font20 = Util.ttfToBitmap(Gdx.files.internal("font.otf"), 20);
+		font30 = Util.ttfToBitmap(Gdx.files.internal("font_bold.otf"), 30);
+
+		setScreen(new GameScreen(this));
 	}
 }
