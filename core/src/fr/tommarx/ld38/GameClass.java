@@ -12,11 +12,14 @@ public class GameClass extends Game {
 	static BitmapFont font20, font30;
 	static GlyphLayout glyphLayout;
 
+	public static String TITLE = "My small world";
+
 	public void init() {
 		glyphLayout = new GlyphLayout();
-		font20 = Util.ttfToBitmap(Gdx.files.internal("font.otf"), 20);
-		font30 = Util.ttfToBitmap(Gdx.files.internal("font_bold.otf"), 30);
+		font20 = Util.ttfToBitmap(Gdx.files.internal("font.ttf"), 30);
+		font30 = Util.ttfToBitmap(Gdx.files.internal("font.ttf"), 45);
 
 		setScreen(new GameScreen(this));
+
 	}
 }

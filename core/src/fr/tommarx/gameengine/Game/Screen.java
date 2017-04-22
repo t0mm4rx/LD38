@@ -264,7 +264,12 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
             stage.setDebugAll(true);
         } else {
             stage.setDebugAll(false);
+            /**** Dafuq part *****/
+            Game.batch.end();
+            Game.batch.begin();
         }
+
+
 
         ArrayList<Drawable> toDelete2 = new ArrayList<>();
         for (Drawable d : toDelete) {

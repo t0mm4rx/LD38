@@ -7,7 +7,7 @@ import fr.tommarx.ld38.GameClass;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Ludum Dare 38 - A small world - by t0m";
+		config.title = "Ludum Dare 38 - " + GameClass.TITLE + " - by t0m";
 		final int SIZE = 80;
 		config.width = 16 * SIZE;
 		config.height = 9 * SIZE;

@@ -28,8 +28,8 @@ public class SplashScreen extends Screen {
     }
 
     public void renderAfter() {
-        GameClass.glyphLayout.setText(GameClass.font30, "A small world");
-        Draw.text("A small world", Game.center.x - GameClass.glyphLayout.width / 2 / 100, Game.center.y - GameClass.glyphLayout.height / 2 / 100, Color.WHITE, GameClass.font30, GameClass.glyphLayout);
+        GameClass.glyphLayout.setText(GameClass.font30, GameClass.TITLE);
+        Draw.text(GameClass.TITLE, Game.center.x - GameClass.glyphLayout.width / 2 / 100, Game.center.y - GameClass.glyphLayout.height / 2 / 100, Color.WHITE, GameClass.font30, GameClass.glyphLayout);
         GameClass.glyphLayout.setText(GameClass.font20, "-- by t0m --");
         Draw.text("-- by t0m --", Game.center.x - GameClass.glyphLayout.width / 2 / 100, Game.center.y - GameClass.glyphLayout.height / 2 / 100 - 0.5f, Color.WHITE, GameClass.font20, GameClass.glyphLayout);
     }
