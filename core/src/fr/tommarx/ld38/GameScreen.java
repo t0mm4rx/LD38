@@ -3,6 +3,7 @@ package fr.tommarx.ld38;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -21,10 +22,14 @@ public class GameScreen extends Screen{
     Texture background, background2, tree;
     Planet p;
     Player player;
+    Music music;
 
     public void show() {
         background = new Texture("background.jpg");
         background2 = new Texture("background2.png");
+        music = Gdx.audio.newMusic(Gdx.files.internal("song.mp3"));
+        music.setLooping(true);
+        music.play();
         tree = new Texture("tree.png");
         world.setGravity(new Vector2(0, 0));
         p = new Planet();
