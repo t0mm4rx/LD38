@@ -33,9 +33,18 @@ public class GameScreen extends Screen{
         tree = new Texture("tree.png");
         world.setGravity(new Vector2(0, 0));
         p = new Planet();
-        player = new Player(new Transform(new Vector2(Game.center.x - 2, 6f)), p);
+
         add(p);
+        player = new Player(new Transform(new Vector2(Game.center.x - 2, 6f)), p);
         add(player);
+
+        Game.waitAndDo(1100, () -> {
+            //Start WAAAARRR !!
+            for (int i = 0; i < 3; i++) {
+                add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360)));
+            }
+            return false;
+        });
 
         add(new Tree(200, p));
         add(new Tree(85, p));
@@ -69,6 +78,7 @@ public class GameScreen extends Screen{
         if (Keys.isKeyJustPressed(Input.Keys.D)) {
             Game.debugging = !Game.debugging;
         }
+        Game.debug(1, "FPS : " + Gdx.graphics.getFramesPerSecond());
     }
 
 }

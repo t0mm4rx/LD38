@@ -14,15 +14,17 @@ import fr.tommarx.gameengine.Components.BoxBody;
 import fr.tommarx.gameengine.Components.SpriteRenderer;
 import fr.tommarx.gameengine.Components.Transform;
 import fr.tommarx.gameengine.Game.AbstractGameObject;
+import fr.tommarx.gameengine.Game.Game;
 import fr.tommarx.gameengine.IO.Keys;
 import fr.tommarx.gameengine.Util.Animation;
+import fr.tommarx.gameengine.Util.Util;
 
 public class Player extends AbstractGameObject{
 
     Planet p;
     SpriteRenderer renderer;
     Body body;
-    float speed = 2, jump = 40;
+    float speed = 2, jump = 60;
     boolean canJump = false;
     AnimationManager am;
 
@@ -42,18 +44,15 @@ public class Player extends AbstractGameObject{
         addComponent(am);
         addComponent(body);
         new CollisionsManager(new CollisionsListener() {
-            public void collisionEnter(AbstractGameObject a, AbstractGameObject b, Contact contact) {
-                if (a != null) {
-                    if (a.getTag().equals("Player") || b.getTag().equals("Player")) {
-                        canJump = true;
-                    }
+                public void collisionEnter(AbstractGameObject a, AbstractGameObject b, Contact contact) {
+                         if (Util.areGameObjectsByTag(a, b, "Player", "Planet")) {
+                             canJump = true;
+                         }
                 }
 
-            }
+                public void collisionEnd(AbstractGameObject a, AbstractGameObject b, Contact contact) {
 
-            public void collisionEnd(AbstractGameObject a, AbstractGameObject b, Contact contact) {
-
-            }
+                }
         });
     }
 
@@ -63,7 +62,7 @@ public class Player extends AbstractGameObject{
         float deg = p.body.getBody().getPosition().cpy().sub(body.getBody().getPosition().cpy()).angle();
         body.getBody().setTransform(body.getBody().getPosition(), fr.tommarx.gameengine.Util.Math.DegreeToRadian(deg + 90));
 
-        body.getBody().applyForceToCenter(p.body.getBody().getPosition().cpy().sub(body.getBody().getPosition().cpy()).nor().scl(3), false);
+        
 
         if (am.getCurrentAnimation() != 1 && body.getBody().getLinearVelocity().len() > 0.1f) {
             am.setCurrentAnimation(1);

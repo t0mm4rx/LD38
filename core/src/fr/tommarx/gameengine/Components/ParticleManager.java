@@ -40,6 +40,8 @@ public class ParticleManager extends Component {
         if (toDelete.size() > 0) {
             for (int i = 0; i < toDelete.size(); i++) {
                 particles.remove(i);
+            }
+            for (int i = 0; i < toDelete.size(); i++) {
                 toDelete.remove(i);
             }
         }
