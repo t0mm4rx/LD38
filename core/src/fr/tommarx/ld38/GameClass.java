@@ -12,7 +12,7 @@ public class GameClass extends Game {
 	static BitmapFont font20, font30;
 	static GlyphLayout glyphLayout;
 
-	public static String TITLE = "My small world";
+	public static String TITLE = "Defending my small world";
 
 	public void init() {
 		glyphLayout = new GlyphLayout();

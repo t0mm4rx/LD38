@@ -10,15 +10,15 @@ import fr.tommarx.gameengine.Game.Draw;
 
 public class BloodParticle extends Particle{
 
-    Body body;
+    CircleBody body;
 
     public BloodParticle(Transform transform) {
-        super(transform, 1000);
+        super(transform.cpy(), 1000);
 
-        body = new CircleBody(this, 0.05f, BodyDef.BodyType.DynamicBody, false);
+        body = new CircleBody(this, 0.01f, BodyDef.BodyType.DynamicBody, false);
         addComponent(body);
 
-        body.getBody().setLinearVelocity(Math.randomVector2(1));
+        body.getBody().setLinearVelocity(Math.randomVector2(2));
         setLayout(10);
     }
 
@@ -27,7 +27,6 @@ public class BloodParticle extends Particle{
     }
 
     public void render() {
-        System.out.println("Draw");
-        Draw.circle(getTransform().getPosition().x, getTransform().getPosition().y, 0.05f, Color.RED);
+        Draw.circle(body.getBody().getPosition().x, body.getBody().getPosition().y, 0.01f, Color.RED);
     }
 }

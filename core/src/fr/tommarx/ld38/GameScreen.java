@@ -1,9 +1,9 @@
 package fr.tommarx.ld38;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -23,6 +23,8 @@ public class GameScreen extends Screen{
     Planet p;
     Player player;
     Music music;
+    int wave = 1, killed = 0;
+    boolean needInstantiate = true;
 
     public void show() {
         background = new Texture("background.jpg");
@@ -38,10 +40,9 @@ public class GameScreen extends Screen{
         player = new Player(new Transform(new Vector2(Game.center.x - 2, 6f)), p);
         add(player);
 
-        Game.waitAndDo(1100, () -> {
-            //Start WAAAARRR !!
-            for (int i = 0; i < 3; i++) {
-                add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360)));
+        Game.waitAndDo(11000, () -> {
+            for (int i = 0; i < 5; i++) {
+                add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360), 1, 10));
             }
             return false;
         });
@@ -71,6 +72,16 @@ public class GameScreen extends Screen{
     }
 
     public void renderAfter() {
+        GameClass.glyphLayout.setText(GameClass.font20, "X to use the gun");
+        Draw.text("X to use the gun", Game.center.x + 3, Game.center.y + 0.1f, Color.BLACK, GameClass.font20, GameClass.glyphLayout);
+        GameClass.glyphLayout.setText(GameClass.font20, "Space to jump");
+        Draw.text("Space to jump", Game.center.x + 3, Game.center.y - 0.1f, Color.BLACK, GameClass.font20, GameClass.glyphLayout);
+
+        GameClass.glyphLayout.setText(GameClass.font20, player.life + " / " + player.totalLifes);
+        Draw.text(player.life + " / " + player.totalLifes, 0.3f, Game.center.y * 2 + 0.3f, Color.BLACK, GameClass.font20, GameClass.glyphLayout);
+
+        GameClass.glyphLayout.setText(GameClass.font20, killed + " kills");
+        Draw.text(killed + " kills", 0.3f, Game.center.y * 2, Color.BLACK, GameClass.font20, GameClass.glyphLayout);
 
     }
 
@@ -79,6 +90,55 @@ public class GameScreen extends Screen{
             Game.debugging = !Game.debugging;
         }
         Game.debug(1, "FPS : " + Gdx.graphics.getFramesPerSecond());
+
+
+        /**** Waves *****/
+
+        if (needInstantiate) {
+            switch (wave) {
+                case 1:
+                    for (int i = 0; i < 3; i++) {
+                        add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360), 1, 10));
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < 2; i++) {
+                        add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360), 1, 25));
+                    }
+                    break;
+                case 3:
+                    add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360), 2.5f, 10));
+                    break;
+                case 4:
+                    for (int i = 0; i < 3; i++) {
+                        add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360), 1f, 50));
+                    }
+                    break;
+                case 5:
+                    for (int i = 0; i < 2; i++) {
+                        add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360), 2f, 15));
+                    }
+                    break;
+                case 6:
+                    player.gun = 3;
+                    player.fireRate = 5;
+                    player.life += player.life / 2;
+                    for (int i = 0; i < 10; i++) {
+                        add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360), 0.7f, 12));
+                    }
+                    break;
+                default:
+                    wave -= 2;
+            }
+            needInstantiate = false;
+        }
+
+        if (getGameObjectsByTag("ET").size() == 0) {
+            wave++;
+            needInstantiate = true;
+        }
+
+
     }
 
 }

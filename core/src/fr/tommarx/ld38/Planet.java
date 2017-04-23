@@ -27,13 +27,15 @@ public class Planet extends AbstractGameObject {
 
     protected void update(float delta) {
         for (AbstractGameObject a : Game.getCurrentScreen().getGameObjects()) {
-            if (a.getComponentByClass("BoxBody") != null) {
-                BoxBody other = ((BoxBody)a.getComponentByClass("BoxBody"));
-                other.getBody().applyForceToCenter(body.getBody().getPosition().cpy().sub(other.getBody().getPosition().cpy()).nor().scl(3), false);
-            }
-            if (a.getComponentByClass("CircleBody") != null) {
-                CircleBody other = ((CircleBody)a.getComponentByClass("CircleBody"));
-                other.getBody().applyForceToCenter(body.getBody().getPosition().cpy().sub(other.getBody().getPosition().cpy()).nor().scl(3), false);
+            if (!a.getTag().equals("Bullet")) {
+                if (a.getComponentByClass("BoxBody") != null) {
+                    BoxBody other = ((BoxBody) a.getComponentByClass("BoxBody"));
+                    other.getBody().applyForceToCenter(body.getBody().getPosition().cpy().sub(other.getBody().getPosition().cpy()).nor().scl(3), false);
+                }
+                if (a.getComponentByClass("CircleBody") != null) {
+                    CircleBody other = ((CircleBody) a.getComponentByClass("CircleBody"));
+                    other.getBody().applyForceToCenter(body.getBody().getPosition().cpy().sub(other.getBody().getPosition().cpy()).nor().scl(3), false);
+                }
             }
         }
     }
