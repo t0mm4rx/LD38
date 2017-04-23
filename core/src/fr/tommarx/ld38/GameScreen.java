@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 import fr.tommarx.gameengine.Components.Transform;
+import fr.tommarx.gameengine.Easing.Tween;
+import fr.tommarx.gameengine.Easing.TweenListener;
 import fr.tommarx.gameengine.Game.Draw;
 import fr.tommarx.gameengine.Game.Game;
 import fr.tommarx.gameengine.Game.Screen;
@@ -25,6 +27,8 @@ public class GameScreen extends Screen{
     Music music;
     int wave = 1, killed = 0;
     boolean needInstantiate = true;
+    float a = 0;
+    int b = 0;
 
     public void show() {
         background = new Texture("background.jpg");
@@ -83,6 +87,9 @@ public class GameScreen extends Screen{
         GameClass.glyphLayout.setText(GameClass.font20, killed + " kills");
         Draw.text(killed + " kills", 0.3f, Game.center.y * 2, Color.BLACK, GameClass.font20, GameClass.glyphLayout);
 
+        GameClass.glyphLayout.setText(GameClass.font30, "New weapon unlocked !");
+        Draw.text("New weapon unlocked !", Game.center.x - GameClass.glyphLayout.width / 2 / 100, Game.center.y, new Color(.1f, .8f, .1f, a), GameClass.font30, GameClass.glyphLayout);
+
     }
 
     public void update() {
@@ -120,15 +127,40 @@ public class GameScreen extends Screen{
                     }
                     break;
                 case 6:
+                    if (player.gun == 0) {
+                        new Tween(Tween.LINEAR_EASE_INOUT, 0.5f, 0f, true, new TweenListener() {
+                            public void onValueChanged(float v) {
+                                if (b < 5) {
+                                    if (v > .99f){
+                                        b++;
+                                    }
+                                    if (v > .5f) {
+                                        a = 1f;
+                                    } else {
+                                        a = 0f;
+                                    }
+                                } else {
+                                    a = 0f;
+                                }
+                            }
+
+                            public void onFinished() {
+
+                            }
+                        });
+                    }
                     player.gun = 3;
                     player.fireRate = 5;
-                    player.life += player.life / 2;
+                    player.life += player.life / 4;
+                    if (player.life > player.totalLifes) {
+                        player.life = player.totalLifes;
+                    }
                     for (int i = 0; i < 10; i++) {
                         add(new ET(p, fr.tommarx.gameengine.Util.Math.randomInt(0, 360), 0.7f, 12));
                     }
                     break;
                 default:
-                    wave -= 2;
+                    wave -= 4;
             }
             needInstantiate = false;
         }

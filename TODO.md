@@ -1,6 +1,6 @@
 #TODO
 
-- [ ] Feedback nouvelle arme
+- [x] Feedback nouvelle arme
 - [ ] Feedback mort
 
 
