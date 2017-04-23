@@ -19,7 +19,7 @@ public class GameClass extends Game {
 		font20 = Util.ttfToBitmap(Gdx.files.internal("font.ttf"), 30);
 		font30 = Util.ttfToBitmap(Gdx.files.internal("font.ttf"), 45);
 
-		setScreen(new GameScreen(this));
+		setScreen(new SplashScreen(this));
 
 	}
 }

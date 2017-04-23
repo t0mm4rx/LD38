@@ -164,7 +164,7 @@ public class Player extends AbstractGameObject{
         });
         Game.getCurrentScreen().fadeOut(1);
         Game.waitAndDo(1000, () -> {
-            Game.getCurrentScreen().setScreen(new GameOverScreen(Game.getCurrentScreen().game));
+            Game.getCurrentScreen().setScreen(new GameOverScreen(Game.getCurrentScreen().game, ((GameScreen)Game.getCurrentScreen()).killed));
             return false;
         });
 

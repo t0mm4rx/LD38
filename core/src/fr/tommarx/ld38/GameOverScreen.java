@@ -10,8 +10,12 @@ import fr.tommarx.gameengine.Game.Screen;
 import fr.tommarx.gameengine.IO.Keys;
 
 public class GameOverScreen extends Screen {
-    public GameOverScreen(Game game) {
+
+    int score;
+
+    public GameOverScreen(Game game, int score) {
         super(game);
+        this.score = score;
     }
     Texture background, background2;
 
@@ -40,8 +44,12 @@ public class GameOverScreen extends Screen {
     public void renderAfter() {
         GameClass.glyphLayout.setText(GameClass.font30, "Game is over !");
         Draw.text("Game is over !", Game.center.x - GameClass.glyphLayout.width / 2 / 100, Game.center.y - GameClass.glyphLayout.height / 2 / 100 + 0.3f, Color.BLACK, GameClass.font30, GameClass.glyphLayout);
+
+        GameClass.glyphLayout.setText(GameClass.font20, "Score : " + score);
+        Draw.text("Score : " + score, Game.center.x - GameClass.glyphLayout.width / 2 / 100, Game.center.y - GameClass.glyphLayout.height / 2 / 100 - 0.2f, Color.BLACK, GameClass.font20, GameClass.glyphLayout);
+
         GameClass.glyphLayout.setText(GameClass.font20, "Press space to restart...");
-        Draw.text("Press space to restart...", Game.center.x - GameClass.glyphLayout.width / 2 / 100, Game.center.y - GameClass.glyphLayout.height / 2 / 100 - 0.2f, Color.BLACK, GameClass.font20, GameClass.glyphLayout);
+        Draw.text("Press space to restart...", Game.center.x - GameClass.glyphLayout.width / 2 / 100, Game.center.y - GameClass.glyphLayout.height / 2 / 100 - 0.5f, Color.BLACK, GameClass.font20, GameClass.glyphLayout);
     }
 
     public void update() {
